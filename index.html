@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./assets/css/font.css" />
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <title>Video Request</title>
+</head>
+
+<body>
+  <div id="email-save-container">
+    <input id="email-input" type="email" placeholder="Email..." required />
+    <button onclick="saveEmailToLocalStorage()">Save</button>
+  </div>
+  <div id="content-container">
+    <div class="header-container max-width-container">
+      <div id="info-container">
+        <a class="info-link" href="udemy.html" target="_self">Go to Udemy Request Page.</a>
+        <a class="info-link" href="https://www.facebook.com/ongdevvuitinh" target="_blank">info<span>.</span></a>
+      </div>
+      <!-- <div class="info-container">
+        info
+      </div> -->
+      <div class="brand-container">
+        <div class="upper-text">hế lô hế lô,</div>
+        <div class="lower-text">Ông Dev đêi<span>.</span></div>
+      </div>
+      <div id="request-button-container">
+        <img src="./assets/icon/feather-icon.svg" alt="request" onclick="togglePopup('popup-container')">
+        <div id="request-box" onclick="togglePopup('popup-container')">
+          <div id="triangle"></div>
+          <span>write a request</span>
+        </div>
+      </div>
+    </div>
+    <div class="request-list-container max-width-container">
+      <div class="request-list-header">
+        <div class="request-list-title">
+          video request list
+        </div>
+        <div class="search-container">
+          <!-- <input id="search-input" type="text" placeholder="Search..." />
+          <div class="search-icon-container">
+            <img src="./assets/icon/search.svg" alt="search-bar" class="search-icon">
+          </div> -->
+        </div>
+      </div>
+      <hr />
+      <ul id="request-list"></ul>
+      <div id="rabbit-ear"></div>
+      <div class="pagenumbers" id="pagination"></div>
+    </div>
+    <div class="right-container max-width-container">
+      <div id="footer">
+        <span>Designed by ngvuthanhnhan</span>
+        <span>2020 &#169 Ong Dev Project</span>
+        <span>All Rights Reserved</span>
+      </div>
+    </div>
+    <div id="popup-container" class="d-none">
+      <div id="toggle-popup" onclick="togglePopup('popup-container')"></div>
+      <div id="popup">
+        <img class="close" src="./assets/icon/close.svg" onclick="togglePopup('popup-container')">
+        <div class="popup-title">Chủ đề video bạn cần là gì?</div>
+        <div class="description">*Không liên quan đến lương lậu, hoặc những thứ ở quá xa với lập trình nhé.</div>
+        <div class="request-input">
+          <input type="text" class="request-control" id="request-title-input" required>
+          <label>Title</label>
+        </div>
+        <div class="request-input">
+          <textarea type="text" class="request-control" id="request-description-input" required></textarea>
+          <label>Description</label>
+        </div>
+        <button onclick="createVideoRequest(); togglePopup('popup-container');">Submit my request</button>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/videoFetcher.js"></script>
+</body>
+
+</html>
