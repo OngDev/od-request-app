@@ -1,4 +1,6 @@
 import { createApp, h } from 'vue'
+import ElementUI from 'element-plus';
+import 'element-plus/lib/theme-chalk/index.css';
 import routes from "./router/index";
 import store from "./store/index";
 
@@ -23,4 +25,4 @@ const App = {
     },
 };
 
-createApp(App).mount('#app')
+createApp(App).use(ElementUI).mount('#app')
