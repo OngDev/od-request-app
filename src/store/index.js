@@ -1,4 +1,4 @@
-import {reactive} from 'vue'
+import { reactive } from "vue"
 
 const store = {
   state: reactive({
@@ -6,13 +6,13 @@ const store = {
   }),
 
   addLoggedInUserToState(payload) {
-    if(payload && payload.user) {
-        this.state.user = payload.user
+    if (payload && payload.user) {
+      this.state.user = payload.user
     }
   },
 
   removeUserOutOfState() {
-      this.state.user = {};
+    this.state.user = {};
   }
 }
 
