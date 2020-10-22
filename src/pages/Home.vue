@@ -1,13 +1,18 @@
 <template>
-    <div>
-        <h1>Home Page</h1>
-        <el-button>Click</el-button>
-    </div>
+<div class="home">
+    Ahih
+    <mylayout />
+</div>
 </template>
 
 <script>
+import MyLayout from '../components/MyLayout'
 export default {
-  name: "Home",
+    name: 'Home',
+    components: {
+        // eslint-disable-next-line vue/no-unused-components
+        'mylayout': MyLayout
+    },
 };
 </script>
 

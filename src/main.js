@@ -1,28 +1,13 @@
-import { createApp, h } from 'vue'
+import { createApp } from 'vue'
 import ElementUI from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
-import routes from "./router/index";
-import store from "./store/index";
+import App from './App.vue'
+import router from './router/index';
 
-const App = {
-    data: () => ({
-        currentRoute: window.location.pathname,
-        shareState: store.state
-    }),
-    mounted() {
-        store.removeUserOutOfState()
-    },
+const app = createApp(App)
+app.config.devtools = true
+app.use(ElementUI)
+app.use(router)
+app.mount('#app')
 
-    computed: {
-        CurrentComponent() {
-            const matchingPage = routes[this.currentRoute] || '404'
-            return require(`./pages/${matchingPage}.vue`).default
-        },
-    },
-
-    render() {
-        return h(this.CurrentComponent);
-    },
-};
-
-createApp(App).use(ElementUI).mount('#app')
+export default app
