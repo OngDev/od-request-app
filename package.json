@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "element-plus": "^1.0.1-alpha.3",
+    "element-plus": "^1.0.1-alpha.10",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-beta.13"
   },
@@ -38,7 +38,10 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "quotes": [2, "double"]
+      "quotes": [
+        2,
+        "double"
+      ]
     }
   },
   "browserslist": [
