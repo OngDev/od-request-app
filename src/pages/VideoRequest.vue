@@ -7,22 +7,49 @@
     <OngDevTitle />
     <WriteRequestTooltip />
     <RequestTabContainer type="videos"/>
+    <RequestPopup v-bind:pageProps="pageProps" v-on:post-request="postRequest" v-on:close-popup="closePopup"/>
   </div>
 </template>
 
 <script>
-import OngDevTitle from "../components/OngDevTitle";
-import RedirectMessage from "../components/RedirectMessage";
-import WriteRequestTooltip from "../components/WriteRequestTooltip";
-import RequestTabContainer from "../components/RequestTabContainer";
+import RequestPopup from "../components/RequestPopup";
+import axios from "axios";
+
 export default {
   name: "VideoRequest",
   components: {
-    OngDevTitle,
-    RedirectMessage,
-    WriteRequestTooltip,
-    RequestTabContainer,
+    RequestPopup
   },
+  data() {
+    return {
+      pageProps: {
+        title:"Content bạn muốn Ông Dev làm?",
+        desc: "*Không liên quan đến lương lậu, hoặc những thứ ở quá xa với lập trình nhé."
+      }
+    }
+  },
+  methods: {
+    postRequest(title,url,description) {
+      axios({
+        method: "post",
+        headers: {
+          "Authorization": "Bearer " + this.$store.state.user.token
+        },
+        url: "https://od-request-api.herokuapp.com/request/videos",
+        data: {title,description}
+      })
+        .then(res => {
+          console.log(res); alert("Success");
+          this.closePopup();
+        })
+        .catch(err => console.error(err))
+    },
+
+    closePopup() {
+      var popup = document.getElementById("pop-up-form");
+      popup.style.display = "none";
+    }
+  }
 };
 </script>
 
