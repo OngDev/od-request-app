@@ -10,7 +10,7 @@
 <script>
 // import MyLayout from "../components/MyLayout";
 // mah import
-import OngDevTitle from "../components/OngDevTitle";
+import OngDevTitle from "../components/OngDevTitle"
 import RedirectMessage from "../components/RedirectMessage"
 import WriteRequestTooltip from "../components/WriteRequestTooltip"
 import Tab from "../components/Tab"
@@ -29,5 +29,6 @@ export default {
   body {
     background-color: #FBF7F5;
     color: #262626;
+    // margin: 4.575vw 30vh;
   }
 </style>
