@@ -2,8 +2,11 @@
   <div class="card-item">
     <div class="item-title">
       {{item.title}}
-      <button class="item-status">
-        {{item.status}}
+      <button v-if="item.isArchived==false" class="item-status active">
+        ACTIVE
+      </button>
+      <button v-else class="item-status archived">
+        ARCHIVED
       </button>
       <Vote />
     </div>
@@ -14,7 +17,7 @@
       <div class="edit-request">
         Edit request
       </div>
-      <div class="delete-request">
+      <div v-on:click="DeleteRequest" class="delete-request">
         <el-tooltip content="Delete" placement="top">
           <i class="el-icon-delete-solid"></i>
         </el-tooltip>
@@ -24,6 +27,7 @@
 </template>
 
 <script>
+import axios from "axios"
 import Vote from "../components/Vote"
 export default {
   name: "CardItem",
@@ -31,6 +35,14 @@ export default {
   components: {
     Vote, 
   },
+  methods: {
+    DeleteRequest: function () {
+      axios
+        .delete("https://od-request-api.herokuapp.com/videos/" + this.item.id)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
+  }
 };
 </script>
 
@@ -61,10 +73,15 @@ export default {
     border-style: none;
     margin-left: 0.45em;
     padding: 0 0.55em;
-    background-color: #f05d20;
     font-size: 0.5em;
     color: #f2f2f2;
     border-radius: 7px;
     text-transform: uppercase;
+  }
+  .active {
+    background-color: #f05d20;
+  }
+  .archived {
+    background-color: #262626;
   }
 </style>

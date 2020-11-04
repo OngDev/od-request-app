@@ -10,7 +10,7 @@ export default {
 	name: "Card",
 	props: ["todos"],
 	components: {
-			CardItem,
+		CardItem,
 	}
 };
 </script>
