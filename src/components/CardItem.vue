@@ -2,13 +2,18 @@
   <div class="card-item">
     <div class="item-title">
       {{item.title}}
-      <button v-if="item.isArchived==false" class="item-status active">
-        ACTIVE
-      </button>
+      <div v-if="item.isActive==false" class="status-container">
+        <button class="item-status active">
+          ACTIVE
+        </button>
+        <button v-on:click="ChangeState" class="item-status click-meh">
+          ARCHIVED
+        </button>
+      </div>
       <button v-else class="item-status archived">
         ARCHIVED
       </button>
-      <Vote />
+      <Vote v-bind:i="i" />
     </div>
     <div class="item-description">
       {{item.description}}
@@ -35,18 +40,43 @@ export default {
   components: {
     Vote, 
   },
+  data() {
+    return {
+      i: this.item,
+    }
+  },
   methods: {
-    DeleteRequest: function () {
-      axios
-        .delete("https://od-request-api.herokuapp.com/videos/" + this.item.id)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+    DeleteRequest: function() {
+      var data = "";
+
+      var config = {
+        method: "delete",
+        url: "https://od-request-api.herokuapp.com/request/videos/" + this.item.id,
+        headers: { 
+          "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYzEyNDAwYS03NTkyLTE2ZjAtODE3NS05MjdkNjBjYTAwMDAiLCJpYXQiOjE2MDQ0ODA0OTEsImV4cCI6MTYwNTM0NDQ5MX0.dguhTrTw5Y2c7YQ0BPTwO53hiDJmugRU4Be74mPUwK4CJxrYI1nz-2XQYPs5ObMPh9nJZytCUUkz9XnO6N-UuA"
+        },
+        data : data
+      };
+
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
+    ChangeState: function() {
+      
     }
   }
 };
 </script>
 
 <style scoped>
+  * {
+    font-family: 'Nunito', sans-serif;
+  }
   .card-item {
     padding: 1em;
     border-bottom: 1px solid rgb(38, 38, 38, 0.15);
@@ -71,15 +101,25 @@ export default {
   }
   .item-status {
     border-style: none;
-    margin-left: 0.45em;
-    padding: 0 0.55em;
-    font-size: 0.5em;
+    margin-left: 0.55em;
+    padding: 0.35em 0.55em;
+    font-size: 0.515em;
     color: #f2f2f2;
-    border-radius: 7px;
-    text-transform: uppercase;
+    border-radius: 20px;
   }
   .active {
     background-color: #f05d20;
+  }
+  .click-meh {
+    opacity: 0.65;
+    border: 1px solid rgb(38, 38, 38, 0.575);
+    color: #262626;
+    transition: 0.15s ease;
+  }
+  .click-meh:hover {
+    opacity: 1;
+    background-color: #262626;
+    color: #f2f2f2;
   }
   .archived {
     background-color: #262626;

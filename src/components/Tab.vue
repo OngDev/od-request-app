@@ -19,15 +19,10 @@ export default {
   },
   created() {
     axios
-      .get("https://od-request-api.herokuapp.com/videos")
+      .get("https://od-request-api.herokuapp.com/request/videos")
       .then(res => this.todos = res.data.content)
       .catch(err => console.log(err))
   },
-  // methods: {
-  //   handleClick(tab, event) {
-  //     console.log(tab, event);
-  //   }
-  // },
   components: {
     Card
   },
