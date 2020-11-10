@@ -36,7 +36,7 @@ export default {
         const res = await axios.get(
           `${process.env.VUE_APP_RESOURCE_SERVER_URL}/request/${this.type}?page=${page}`
         );
-        this.requests = this.mapRequests(_.get(res, "data.content", []))
+        this.requests = this.mapRequests(_.get(res, "data.content", []));
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +45,12 @@ export default {
       try {
         if (!page) page = 0;
         const res = await axios.get(
-          `${process.env.VUE_APP_RESOURCE_SERVER_URL}/request/${this.type}/mine?page=${page}`
+          `${process.env.VUE_APP_RESOURCE_SERVER_URL}/request/${this.type}/mine?page=${page}`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.state.user.token}`,
+            },
+          }
         );
         this.myRequests, this.mapRequests(_.get(res, "data.content", []));
       } catch (error) {

@@ -3,11 +3,8 @@
 </template>
 
 <script>
-import { REMOVE_USER_OUT_OF_STATE } from "./store/actions"
 export default {
-  mounted() {
-    this.$store.commit(REMOVE_USER_OUT_OF_STATE);
-  },
+  name: "App"
 };
 </script>
 
