@@ -1,8 +1,8 @@
 <template>
   <div class="card-item">
     <div class="item-title">
-      {{item.title}}
-      <div v-if="item.isActive==false" class="status-container">
+      {{request.title}}
+      <div v-if="request.isActive==false" class="status-container">
         <button class="item-status active">
           ACTIVE
         </button>
@@ -16,7 +16,8 @@
       <Vote v-bind:i="i" />
     </div>
     <div class="item-description">
-      {{item.description}}
+      {{request.description}}
+      <a v-if="request.url">{{request.url}}</a>
     </div>
     <div class="manage-request">
       <div class="edit-request">
@@ -35,27 +36,19 @@
 import axios from "axios"
 import Vote from "../components/Vote"
 export default {
-  name: "CardItem",
-  props: ["item"],
+  name: "RequestItem",
+  props: ["request"],
   components: {
     Vote, 
   },
-  data() {
-    return {
-      i: this.item,
-    }
-  },
   methods: {
     DeleteRequest: function() {
-      var data = "";
-
       var config = {
         method: "delete",
-        url: "https://od-request-api.herokuapp.com/request/videos/" + this.item.id,
+        url: "https://od-request-api.herokuapp.com/request/videos/" + this.request.id,
         headers: { 
           "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYzEyNDAwYS03NTkyLTE2ZjAtODE3NS05MjdkNjBjYTAwMDAiLCJpYXQiOjE2MDQ0ODA0OTEsImV4cCI6MTYwNTM0NDQ5MX0.dguhTrTw5Y2c7YQ0BPTwO53hiDJmugRU4Be74mPUwK4CJxrYI1nz-2XQYPs5ObMPh9nJZytCUUkz9XnO6N-UuA"
-        },
-        data : data
+        }
       };
 
       axios(config)

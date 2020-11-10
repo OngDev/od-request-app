@@ -3,13 +3,10 @@
 </template>
 
 <script>
-import store from "./store/index";
+import { REMOVE_USER_OUT_OF_STATE } from "./store/actions"
 export default {
-  data: () => ({
-    shareState: store.state,
-  }),
   mounted() {
-    store.removeUserOutOfState();
+    this.$store.commit(REMOVE_USER_OUT_OF_STATE);
   },
 };
 </script>
