@@ -1,19 +1,13 @@
-import { reactive } from "vue"
+import { createStore } from "vuex"
+import mutations from "./mutations"
 
-const store = {
-  state: reactive({
-    user: undefined,
-  }),
-
-  addLoggedInUserToState(payload) {
-    if (payload && payload.user) {
-      this.state.user = payload.user
+const store = createStore({
+  state() {
+    return {
+      user: undefined,
     }
   },
-
-  removeUserOutOfState() {
-    this.state.user = {};
-  }
-}
+  mutations
+})
 
 export default store;

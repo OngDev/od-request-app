@@ -1,18 +1,32 @@
 <template>
   <div class="home">
-    <MyLayout />
+    <RedirectMessage />
+    <OngDevTitle />
+    <WriteRequestTooltip />
+    <RequestTabContainer type="videos"/>
   </div>
 </template>
 
 <script>
-import MyLayout from "../components/MyLayout";
+import OngDevTitle from "../components/OngDevTitle";
+import RedirectMessage from "../components/RedirectMessage";
+import WriteRequestTooltip from "../components/WriteRequestTooltip";
+import RequestTabContainer from "../components/RequestTabContainer";
 export default {
   name: "Home",
   components: {
-    MyLayout,
+    OngDevTitle,
+    RedirectMessage,
+    WriteRequestTooltip,
+    RequestTabContainer,
   },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+body {
+  background-color: #fbf7f5;
+  color: #262626;
+  // margin: 4.575vw 30vh;
+}
 </style>

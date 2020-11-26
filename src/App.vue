@@ -3,14 +3,9 @@
 </template>
 
 <script>
-import store from "./store/index";
 export default {
-  data: () => ({
-    shareState: store.state,
-  }),
-  mounted() {
-    store.removeUserOutOfState();
-  },
+  name: "App"
 };
 </script>
-<style lang="less"/>
+
+<style lang="less" />
