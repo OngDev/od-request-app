@@ -1,7 +1,12 @@
 <template>
     <div class="redirect">
-        <a href="#">
-            {{pagename}} requests page <span class="dot">.</span>
+        <a href="/video">
+            Video requests page <span class="dot">.</span>
+            <i class="el-icon-right move-right"></i>
+        </a>
+        <br>
+        <a href="/qna">
+            Q&A page <span class="dot">.</span>
             <i class="el-icon-right move-right"></i>
         </a>
     </div>
@@ -10,11 +15,6 @@
 <script>
 export default {
     name: "RedirectMessage",
-    data() {
-        return {
-            pagename: "Udemy"
-        }
-    },
 }
 </script>
 
@@ -27,6 +27,7 @@ export default {
         font-family: 'Nunito', sans-serif;
         font-weight: 600;
         padding-bottom: 2.125em;
+        text-align: end;
     }
     .dot {
         font-size: 1.375em;

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <RedirectMessage />
+    <!-- <RedirectMessage /> -->
     <OngDevTitle />
     <WriteRequestTooltip />
     <RequestTabContainer type="videos"/>
@@ -9,14 +9,12 @@
 
 <script>
 import OngDevTitle from "../components/OngDevTitle";
-import RedirectMessage from "../components/RedirectMessage";
 import WriteRequestTooltip from "../components/WriteRequestTooltip";
 import RequestTabContainer from "../components/RequestTabContainer";
 export default {
   name: "Home",
   components: {
     OngDevTitle,
-    RedirectMessage,
     WriteRequestTooltip,
     RequestTabContainer,
   },
@@ -27,6 +25,6 @@ export default {
 body {
   background-color: #fbf7f5;
   color: #262626;
-  // margin: 4.575vw 30vh;
+  margin: 4.575vw 30vh;
 }
 </style>
