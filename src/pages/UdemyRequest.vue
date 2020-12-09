@@ -3,23 +3,23 @@
     <div id="page-name">
       this is <span class="highlight">udemy-request</span> page!
     </div> 
-    <RedirectMessageUdemy />
+    <RedirectMessage type="udemy" />
     <OngDevTitle />
     <WriteRequestTooltip />
-    <RequestTabContainer type="udemy"/>
+    <RequestTabContainer type="udemy "/>
   </div>
 </template>
 
 <script>
 import OngDevTitle from "../components/OngDevTitle";
-import RedirectMessageUdemy from "../components/RedirectMessageUdemy";
+import RedirectMessage from "../components/RedirectMessage";
 import WriteRequestTooltip from "../components/WriteRequestTooltip";
 import RequestTabContainer from "../components/RequestTabContainer";
 export default {
   name: "UdemyRequest",
   components: {
     OngDevTitle,
-    RedirectMessageUdemy,
+    RedirectMessage,
     WriteRequestTooltip,
     RequestTabContainer,
   },

@@ -3,23 +3,23 @@
     <div id="page-name">
       this is <span class="highlight">Q&A</span> page!
     </div> 
-    <RedirectMessageQnA />
+    <RedirectMessage type="qna" />
     <OngDevTitle />
     <WriteRequestTooltip />
-    <RequestTabContainer type="qna"/>
+    <RequestTabContainer type="qna" />
   </div>
 </template>
 
 <script>
 import OngDevTitle from "../components/OngDevTitle";
-import RedirectMessageQnA from "../components/RedirectMessageQnA";
+import RedirectMessage from "../components/RedirectMessage";
 import WriteRequestTooltip from "../components/WriteRequestTooltip";
 import RequestTabContainer from "../components/RequestTabContainer";
 export default {
   name: "QARequest",
   components: {
     OngDevTitle,
-    RedirectMessageQnA,
+    RedirectMessage,
     WriteRequestTooltip,
     RequestTabContainer,
   },

@@ -3,7 +3,7 @@
     <div id="page-name">
       this is <span class="highlight">video-request</span> page!
     </div> 
-    <RedirectMessageVideoRequest />
+    <RedirectMessage type="videos"/>
     <OngDevTitle />
     <WriteRequestTooltip />
     <RequestTabContainer type="videos"/>
@@ -12,14 +12,14 @@
 
 <script>
 import OngDevTitle from "../components/OngDevTitle";
-import RedirectMessageVideoRequest from "../components/RedirectMessageVideoRequest";
+import RedirectMessage from "../components/RedirectMessage";
 import WriteRequestTooltip from "../components/WriteRequestTooltip";
 import RequestTabContainer from "../components/RequestTabContainer";
 export default {
   name: "VideoRequest",
   components: {
     OngDevTitle,
-    RedirectMessageVideoRequest,
+    RedirectMessage,
     WriteRequestTooltip,
     RequestTabContainer,
   },
