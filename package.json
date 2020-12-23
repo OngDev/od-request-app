@@ -10,7 +10,7 @@
   "dependencies": {
     "axios": "^0.21.0",
     "core-js": "^3.7.0",
-    "element-plus": "^1.0.1-alpha.14",
+    "element-plus": "^1.0.1-alpha.19",
     "express": "^4.17.1",
     "lodash": "^4.17.20",
     "serve-static": "^1.14.1",
@@ -29,7 +29,10 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.1.0",
     "less": "^3.12.2",
-    "less-loader": "^7.0.2"
+    "less-loader": "^7.0.2",
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.4",
+    "vue-cli-plugin-element-plus": "0.0.8"
   },
   "eslintConfig": {
     "root": true,

@@ -1,30 +1,17 @@
 <template>
-  <div class="home">
-    <!-- <RedirectMessage /> -->
-    <OngDevTitle />
-    <WriteRequestTooltip />
-    <RequestTabContainer type="videos"/>
+  <div class="page-container">
+    <div class="content-container">
+      Test
+    </div>
   </div>
 </template>
 
 <script>
-import OngDevTitle from "../components/OngDevTitle";
-import WriteRequestTooltip from "../components/WriteRequestTooltip";
-import RequestTabContainer from "../components/RequestTabContainer";
 export default {
   name: "Home",
-  components: {
-    OngDevTitle,
-    WriteRequestTooltip,
-    RequestTabContainer,
-  },
 };
 </script>
 
-<style lang="less">
-body {
-  background-color: #fbf7f5;
-  color: #262626;
-  margin: 4.575vw 30vh;
-}
+<style lang="less" scoped>
+
 </style>
