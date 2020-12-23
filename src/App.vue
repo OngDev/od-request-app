@@ -141,6 +141,10 @@ table {
 body {
   height: 100vh;
 }
+#app {
+  height: 100%;
+  width: 100%;
+}
 
 .page-container {
   background-color: #f2f2f2;
@@ -148,8 +152,10 @@ body {
 }
 
 .content-container {
+  margin: auto;
   height: 100%;
   background-color: #fbf7f5;
+  max-width: 1440px;
 }
 
 .highlight {
@@ -163,5 +169,25 @@ body {
   letter-spacing: 0.025rem;
   font-weight: 600;
   text-align: end;
+}
+
+@media only screen and (min-width:1440px){
+  .content-container {
+    border-radius: 10px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    height: calc(100vh - 60px);
+  }
+
+  .page-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}
+
+@media only screen and (min-height: 1000px){
+  .page-container {
+    height: 100vh;
+    
+  }
 }
 </style>
