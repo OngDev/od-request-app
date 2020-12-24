@@ -23,7 +23,7 @@ export default {
     RequestSection,
     LoginSection,
     SocialSection
-  }
+  },
 };
 </script>
 

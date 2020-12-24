@@ -12,10 +12,12 @@
     "core-js": "^3.7.0",
     "element-plus": "^1.0.1-alpha.19",
     "express": "^4.17.1",
+    "keycloak-js": "^12.0.1",
     "lodash": "^4.17.20",
     "serve-static": "^1.14.1",
     "vue": "^3.0.2",
     "vue-router": "^4.0.0-rc.2",
+    "vuejs3-logger": "1.0.0",
     "vuex": "^4.0.0-rc.1"
   },
   "devDependencies": {

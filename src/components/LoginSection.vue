@@ -1,11 +1,17 @@
 <template>
-  <div id="login-section">
-    <a>Log in</a><br v-if="isSmall" />
+  <div id="login-section" v-if="$store.state.token === undefined">
+    <a @click="login()">Log in</a><br v-if="isSmall" />
     to <span>POST</span> your own Requests
   </div>
 </template>
 
 <script>
+import * as Keycloak from "keycloak-js";
+import {
+  ADD_LOGGED_IN_USER_TO_STATE,
+  SET_ACCESS_TOKEN_TO_STATE,
+} from "../store/actions";
+const { VUE_APP_KEYCLOAK_URL, VUE_APP_REALM, VUE_APP_CLIENT_ID } = process.env;
 export default {
   name: "LoginSection",
   data() {
@@ -19,10 +25,45 @@ export default {
     });
   },
   methods: {
-      isSmallScreen() {
-            return window.innerWidth < 768;
-      }
-  }
+    isSmallScreen() {
+      return window.innerWidth < 768;
+    },
+    login() {
+      const initOptions = {
+        url: VUE_APP_KEYCLOAK_URL,
+        realm: VUE_APP_REALM,
+        clientId: VUE_APP_CLIENT_ID,
+        onload: "check-sso",
+      };
+      let keycloak = Keycloak(initOptions);
+      keycloak
+        .init({
+          onLoad: "check-sso",
+          silentCheckSsoRedirectUri:
+            window.location.origin + "/silent-check-sso.html",
+        })
+        .then((auth) => {
+          if (!auth) {
+            window.location.reload();
+          } else {
+            this.$log.info("Authenticated");
+          }
+          const { token, refreshToken } = keycloak;
+          this.$store.commit(SET_ACCESS_TOKEN_TO_STATE, {
+            token,
+            refreshToken,
+          });
+          keycloak.loadUserInfo().then((user) => {
+            if (user) {
+              this.$store.commit(ADD_LOGGED_IN_USER_TO_STATE, { user: user });
+            }
+          });
+        })
+        .catch(() => {
+          this.$log.error("Authenticated Failed");
+        });
+    },
+  },
 };
 </script>
 
@@ -38,6 +79,7 @@ export default {
 }
 #login-section a {
   color: @od-primary;
+  cursor: pointer;
 }
 
 #login-section span {

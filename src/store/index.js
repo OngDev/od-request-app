@@ -5,6 +5,8 @@ const store = createStore({
   state() {
     return {
       user: undefined,
+      token: undefined,
+      refreshToken: undefined
     }
   },
   mutations
