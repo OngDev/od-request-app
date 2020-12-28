@@ -34,8 +34,8 @@ jobs:
         uses: actions/setup-node@v2.1.4
       
       # Install node with cache
-      - name: Yarn & Node install cache
-        uses: EgorDm/gha-yarn-node-cache@v1
+      - name: NPM or Yarn install with caching
+        uses: bahmutov/npm-install@v1.6.0
 
       # Build node app
       - name: Build project
