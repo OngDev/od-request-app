@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "jvjr --build && vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "jvjr-build": "jvjr --build"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.8.1",
     "element-plus": "^1.0.1-beta.17",
     "express": "^4.17.1",
+    "jvjr-docker-env": "^1.1.0-alpha",
     "keycloak-js": "^12.0.1",
     "lodash": "^4.17.20",
     "serve-static": "^1.14.1",

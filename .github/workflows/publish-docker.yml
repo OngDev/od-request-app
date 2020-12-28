@@ -64,7 +64,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ongdev/od-request-app/latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/od-request-app:0.0.1, ${{ secrets.DOCKER_HUB_USERNAME }}/od-request-app:latest
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

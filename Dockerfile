@@ -1,9 +1,6 @@
 # build stage
 FROM node:lts-alpine as build-stage
 
-# install simple http server for serving static content
-RUN npm install -g http-server
-
 # make the 'app' folder the current working directory
 WORKDIR /app
 
@@ -22,5 +19,9 @@ RUN npm run build
 # production stage
 FROM nginx:stable-alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=build-stage /app/jvjr-entrypoint.sh /
+COPY --from=build-stage /app/jvjr-env.json /
+RUN chmod +x /jvjr-entrypoint.sh
 EXPOSE 80
+ENTRYPOINT [ "/jvjr-entrypoint.sh", "/usr/share/nginx/html/js", "app" ]
 CMD ["nginx", "-g", "daemon off;"]

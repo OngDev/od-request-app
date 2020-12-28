@@ -7,11 +7,15 @@
 
 <script>
 import * as Keycloak from "keycloak-js";
+import EnvProvider from "jvjr-docker-env";
 import {
   ADD_LOGGED_IN_USER_TO_STATE,
   SET_ACCESS_TOKEN_TO_STATE,
 } from "../store/actions";
-const { VUE_APP_KEYCLOAK_URL, VUE_APP_REALM, VUE_APP_CLIENT_ID } = process.env;
+const KEYCLOAK_URL = EnvProvider.value("KEYCLOAK_URL");
+const REALM = EnvProvider.value("REALM");
+const CLIENT_ID = EnvProvider.value("CLIENT_ID");
+
 export default {
   name: "LoginSection",
   data() {
@@ -30,9 +34,9 @@ export default {
     },
     login() {
       const initOptions = {
-        url: VUE_APP_KEYCLOAK_URL,
-        realm: VUE_APP_REALM,
-        clientId: VUE_APP_CLIENT_ID,
+        url: KEYCLOAK_URL,
+        realm: REALM,
+        clientId: CLIENT_ID,
         onload: "check-sso",
       };
       let keycloak = Keycloak(initOptions);

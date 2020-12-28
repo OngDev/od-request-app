@@ -12,7 +12,9 @@
 <script>
 import _ from "lodash";
 import axios from "axios";
+import EnvProvider from "jvjr-docker-env";
 import RequestList from "../components/RequestList";
+const RESOURCE_SERVER_URL = EnvProvider.value("RESOURCE_SERVER_URL");
 export default {
   props: ["type"],
   data() {
@@ -34,7 +36,7 @@ export default {
       try {
         if (!page) page = 0;
         const res = await axios.get(
-          `${process.env.VUE_APP_RESOURCE_SERVER_URL}/request/${this.type}?page=${page}`
+          `${RESOURCE_SERVER_URL}/request/${this.type}?page=${page}`
         );
         this.requests = this.mapRequests(_.get(res, "data.content", []));
       } catch (error) {
@@ -45,7 +47,7 @@ export default {
       try {
         if (!page) page = 0;
         const res = await axios.get(
-          `${process.env.VUE_APP_RESOURCE_SERVER_URL}/request/${this.type}/mine?page=${page}`,
+          `${RESOURCE_SERVER_URL}/request/${this.type}/mine?page=${page}`,
           {
             headers: {
               Authorization: `Bearer ${this.$store.state.user.token}`,
