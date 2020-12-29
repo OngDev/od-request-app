@@ -21,6 +21,8 @@ FROM nginx:stable-alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 COPY --from=build-stage /app/jvjr-entrypoint.sh /
 COPY --from=build-stage /app/jvjr-env.json /
+COPY nginx.conf /temp/prod.conf
+RUN envsubst /app < /temp/prod.conf > /etc/nginx/conf.d/default.conf
 RUN chmod +x /jvjr-entrypoint.sh
 EXPOSE 80
 ENTRYPOINT [ "/jvjr-entrypoint.sh", "/usr/share/nginx/html/js", "app" ]
