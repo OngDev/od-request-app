@@ -1,5 +1,5 @@
 <template>
-    <div class="redirect" v-if="this.type==='videos'">
+    <div class="redirect" v-if="type==='videos'">
         <a :href="`${VideoRedirect[0].href}`">
             {{ VideoRedirect[0].text }} <span class="dot">.</span>
             <i class="el-icon-right move-right"></i>
@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    <div class="redirect" v-else-if="this.type==='udemy'">
+    <div class="redirect" v-else-if="type==='udemy'">
         <a :href="`${UdemyRedirect[0].href}`">
             {{ UdemyRedirect[0].text }} <span class="dot">.</span>
             <i class="el-icon-right move-right"></i>

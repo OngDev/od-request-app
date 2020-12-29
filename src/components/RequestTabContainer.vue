@@ -1,10 +1,10 @@
  <template>
   <el-tabs v-model="activeTab" @tab-click="handleClick">
     <el-tab-pane label="All requests" name="all-requests">
-      <RequestList :requests="this.requests" />
+      <RequestList :requests="requests" />
     </el-tab-pane>
     <el-tab-pane label="My requests" name="my-requests">
-      <RequestList :requests="this.myRequests" />
+      <RequestList :requests="myRequests" />
     </el-tab-pane>
   </el-tabs>
 </template>
