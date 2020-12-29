@@ -2,6 +2,7 @@ import { createApp } from "vue"
 import VueLogger from "vuejs3-logger";
 import App from "./App.vue"
 import installElementPlus from "./plugins/element.js"
+import { initKeycloak } from "./keycloak/index";
 import store from "./store/index"
 import router from "./router/index";
 
@@ -23,5 +24,6 @@ installElementPlus(app)
 app.use(router)
 app.use(store)
 app.use(VueLogger, options)
+initKeycloak(app);
 app.mount("#app")
 

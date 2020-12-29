@@ -6,16 +6,8 @@
 </template>
 
 <script>
-import * as Keycloak from "keycloak-js";
-import EnvProvider from "jvjr-docker-env";
-import {
-  ADD_LOGGED_IN_USER_TO_STATE,
-  SET_ACCESS_TOKEN_TO_STATE,
-} from "../store/actions";
-const KEYCLOAK_URL = EnvProvider.value("KEYCLOAK_URL");
-const REALM = EnvProvider.value("REALM");
-const CLIENT_ID = EnvProvider.value("CLIENT_ID");
-
+//import * as Keycloak from "keycloak-js";
+import { loginKeycloak } from "../keycloak/index";
 export default {
   name: "LoginSection",
   data() {
@@ -33,39 +25,7 @@ export default {
       return window.innerWidth < 768;
     },
     login() {
-      const initOptions = {
-        url: KEYCLOAK_URL,
-        realm: REALM,
-        clientId: CLIENT_ID,
-        onload: "check-sso",
-      };
-      let keycloak = Keycloak(initOptions);
-      keycloak
-        .init({
-          onLoad: "check-sso",
-          silentCheckSsoRedirectUri:
-            window.location.origin + "/silent-check-sso.html",
-        })
-        .then((auth) => {
-          if (!auth) {
-            window.location.reload();
-          } else {
-            this.$log.info("Authenticated");
-          }
-          const { token, refreshToken } = keycloak;
-          this.$store.commit(SET_ACCESS_TOKEN_TO_STATE, {
-            token,
-            refreshToken,
-          });
-          keycloak.loadUserInfo().then((user) => {
-            if (user) {
-              this.$store.commit(ADD_LOGGED_IN_USER_TO_STATE, { user: user });
-            }
-          });
-        })
-        .catch(() => {
-          this.$log.error("Authenticated Failed");
-        });
+      loginKeycloak();
     },
   },
 };
