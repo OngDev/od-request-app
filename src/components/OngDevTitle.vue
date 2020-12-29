@@ -20,11 +20,11 @@ export default {
     }
     #welcome-text {
         font-size: 1.55rem;
-        margin-bottom: -0.715em;
     }
     #Ong-Dev {
         font-size: 2.875rem;
         font-weight: 700;
+        margin-bottom: 0.75rem;
     }
     #Ong-Dev > .dot {
         font-size: 1.25em;

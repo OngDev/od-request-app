@@ -1,12 +1,10 @@
 <template>
-  <div class="page-container">
-    <div class="content-container">
-      <HomeHeader />
-      <div id="home-section">
-        <RequestSection/>
-        <LoginSection/>
-        <SocialSection/>
-      </div>
+  <div id="home">
+    <HomeHeader />
+    <div id="home-section">
+      <RequestSection />
+      <LoginSection />
+      <SocialSection />
     </div>
   </div>
 </template>
@@ -22,7 +20,7 @@ export default {
     HomeHeader,
     RequestSection,
     LoginSection,
-    SocialSection
+    SocialSection,
   },
 };
 </script>

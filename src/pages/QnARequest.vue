@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div id="qna-page" class="request-page">
     <div id="page-name">
       this is <span class="highlight">Q&A</span> page!
     </div> 

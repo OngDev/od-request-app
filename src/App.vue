@@ -1,11 +1,15 @@
 <template>
-  <router-view />
+  <div class="page-container">
+    <div class="content-container">
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "App",
-}
+};
 </script>
 
 <style lang="less">
@@ -135,7 +139,7 @@ table {
 }
 
 * {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 body {
@@ -171,7 +175,11 @@ body {
   text-align: end;
 }
 
-@media only screen and (min-width:1440px){
+.request-page {
+    padding: 20px;
+}
+
+@media only screen and (min-width: 1440px) {
   .content-container {
     border-radius: 10px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
@@ -184,10 +192,9 @@ body {
   }
 }
 
-@media only screen and (min-height: 1000px){
+@media only screen and (min-height: 1000px) {
   .page-container {
     height: 100vh;
-    
   }
 }
 </style>
