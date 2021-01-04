@@ -144,6 +144,7 @@ table {
 
 body {
   height: 100vh;
+  min-height: 1080px;
 }
 #app {
   height: 100%;
@@ -153,6 +154,7 @@ body {
 .page-container {
   background-color: #f2f2f2;
   color: #262626;
+  height: 100%;
 }
 
 .content-container {
@@ -184,17 +186,26 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     height: calc(100vh - 60px);
+    min-height: 1020px;
   }
 
   .page-container {
     padding-top: 30px;
     padding-bottom: 30px;
+    height: calc(100% - 60px);
   }
 }
 
 @media only screen and (min-height: 1000px) {
   .page-container {
     height: 100vh;
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  .page-container {
+    min-height: unset;
   }
 }
 </style>
