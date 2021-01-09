@@ -33,10 +33,11 @@ export function initKeycloak() {
         });
         keycloak.loadUserInfo().then((user) => {
           if (user) {
-            console.log(user);
+            user.roles = keycloak.tokenParsed.realm_access.roles;
             store.commit(ADD_LOGGED_IN_USER_TO_STATE, { user: user });
           }
         });
+        
       }
     })
     .catch(() => {

@@ -50,7 +50,7 @@ export default {
           `${RESOURCE_SERVER_URL}/request/${this.type}/mine?page=${page}`,
           {
             headers: {
-              Authorization: `Bearer ${this.$store.state.user.token}`,
+              Authorization: `Bearer ${this.$store.state.token}`,
             },
           }
         );
