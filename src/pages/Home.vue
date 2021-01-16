@@ -22,11 +22,6 @@ export default {
     LoginSection,
     SocialSection,
   },
-  methods: {
-    Login() {
-      location.href = "https://user-anm-dev.herokuapp.com/oauth2/authorize/google?redirect_uri=http://localhost:3333/callback";
-    }, 
-  }
 };
 </script>
 

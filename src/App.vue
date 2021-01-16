@@ -162,6 +162,7 @@ body {
   height: 100%;
   background-color: #fbf7f5;
   max-width: 1440px;
+  position: relative;
 }
 
 .highlight {
