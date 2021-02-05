@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --https true",
-    "build": "jvjr --build && vue-cli-service build",
+    "build": "jvjr --build && vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
     "jvjr-build": "jvjr --build"
   },
