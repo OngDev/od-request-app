@@ -61,7 +61,7 @@ const actions = {
           }
     },
 
-    async createRequest({state, dispatch, commit}, {title, description, url, type}) {
+    async createRequest({state, dispatch, commit}, {title, description, url, popupType}) {
         try {
             if(!state.token) {
                 localStorage.setItem("last-url", window.location.pathname);
@@ -72,7 +72,7 @@ const actions = {
                 headers: {
                   Authorization: "Bearer " + state.token,
                 },
-                url: `${RESOURCE_SERVER_URL}/request/${type}`,
+                url: `${RESOURCE_SERVER_URL}/request/${popupType}`,
                 data: { title,description},
               };
         
@@ -86,8 +86,7 @@ const actions = {
               const response = await axios(option);
               if(response.status === 200) {
                 commit(CLOSE_CREATION_POPUP);
-                dispatch(FETCH_REQUEST);
-                dispatch(FETCH_MY_REQUEST);
+                dispatch(FETCH_MY_REQUEST, {});
               } else {
                   commit(ADD_ERROR_MESSAGE_TO_CREATION_POPUP, {message: response.data.message});
               }
