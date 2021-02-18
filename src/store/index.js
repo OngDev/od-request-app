@@ -15,7 +15,8 @@ const store = createStore({
         isVisible: false,
         isLoading: false,
         errorMessage: undefined
-      }
+      },
+      requestTab: "all-requests",
     }
   },
   mutations,

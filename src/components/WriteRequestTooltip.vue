@@ -3,8 +3,8 @@
     <div id="smol-tip"></div>
     <span id="in-text">
       Write a request
-      <i class="el-icon-edit"></i>
     </span>
+    here!
   </div>
 </template>
 
@@ -23,17 +23,19 @@ export default {
 <style scoped>
 #write-req-tooltip {
   font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-size: 1.175em;
-  margin-bottom: 2.125em;
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 30px;
   cursor: pointer;
+  display: inline-block;
 }
 #in-text {
   color: #f2f2f2;
   background-color: #3d3d3d;
   border-radius: 20px;
   width: 6.95em;
-  padding: 0.415em 0.65em;
+  padding: 5px 18px;
+  margin-right: 5px;
 }
 #smol-tip {
   border-left: 0.525em solid transparent;

@@ -13,6 +13,8 @@ export default {
 </script>
 
 <style lang="less">
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 html,
 body,
 div,
@@ -139,7 +141,7 @@ table {
 }
 
 * {
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -149,6 +151,7 @@ body {
 #app {
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 .page-container {
@@ -162,7 +165,6 @@ body {
   height: 100%;
   background-color: #fbf7f5;
   max-width: 1440px;
-  position: relative;
 }
 
 .highlight {
@@ -201,6 +203,9 @@ body {
   .page-container {
     height: 100vh;
   }
+  #app {
+    overflow-y: hidden;
+  }
 }
 
 
@@ -208,5 +213,12 @@ body {
   .page-container {
     min-height: unset;
   }
+}
+
+.el-tabs__item {
+  font-weight: 500 !important;
+  font-size: 21px !important;
+  line-height: 29px !important;
+  color: #000000 !important;
 }
 </style>

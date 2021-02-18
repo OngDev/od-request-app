@@ -58,6 +58,10 @@ const mutations = {
       ...state.creationPopup,
       errorMessage: message
     }
+  },
+
+  toMyRequestsTab(state) {
+    state.requestTab = "my-requests"
   }
 }
 

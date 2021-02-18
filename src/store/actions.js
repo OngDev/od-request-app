@@ -8,12 +8,15 @@ export const ADD_MY_REQUEST_LIST_TO_STATE = "addMyRequestListToState";
 export const FETCH_REQUEST = "fetchRequests";
 export const FETCH_MY_REQUEST = "fetchMyRequests";
 export const CREATE_REQUEST = "createRequest";
+export const DELETE_REQUEST = "deleteRequest";
 
 // Popup handing
 export const CLOSE_CREATION_POPUP = "closeCreationPopup";
 export const OPEN_CREATION_POPUP = "openCreationPopup";
 export const TOGGLE_CREATION_POPUP_LOADING = "togglePopupLoading";
 export const ADD_ERROR_MESSAGE_TO_CREATION_POPUP = "addErrorMessageToCreationPopup";
+
+export const TO_MY_REQUESTS_TAB = "toMyRequestsTab";
 
 import _ from "lodash";
 import axios from "axios";
@@ -86,13 +89,38 @@ const actions = {
               const response = await axios(option);
               if(response.status === 200) {
                 commit(CLOSE_CREATION_POPUP);
-                dispatch(FETCH_MY_REQUEST, {});
+                dispatch(FETCH_MY_REQUEST, {page: 0, type: popupType});
+                commit(TO_MY_REQUESTS_TAB);
               } else {
                   commit(ADD_ERROR_MESSAGE_TO_CREATION_POPUP, {message: response.data.message});
               }
         } catch (error) {
             logger.error(error);
         }
+    },
+
+    async deleteRequest({state, dispatch}, {type, id}) {
+        const options = {
+            method: "delete",
+            url: `${RESOURCE_SERVER_URL}/request/${type}/${id}`,
+            headers: {
+                Authorization:
+                    `Bearer ${state.token}`,
+            },
+        };
+
+        const response = await axios(options);
+        if(_.get(response, "status") === 200){
+            if(state.requestTab === "my-requests") {
+                dispatch(FETCH_MY_REQUEST, {page: 0, type})
+            }else {
+                dispatch(FETCH_REQUEST, {page: 0, type})
+            }
+        }
+    },
+
+    toMyRequestsTab({ commit}) {
+        commit(TO_MY_REQUESTS_TAB);
     }
 }
 

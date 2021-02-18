@@ -1,25 +1,28 @@
 <template>
   <div class="card-item">
-    <div class="item-title">
-      {{ request.title }}
-      <div v-if="request.isActive == false" class="status-container">
-        <button class="item-status active">ACTIVE</button>
-        <button v-on:click="ChangeState" class="item-status click-meh">
-          ARCHIVED
-        </button>
+    <div>
+      <div class="item-title">
+        {{ request.title }}
+        <div v-if="request.isActive == false" class="status-container">
+          <button class="item-status active">ACTIVE</button>
+          <button v-on:click="ChangeState" class="item-status click-meh">
+            ARCHIVED
+          </button>
+        </div>
+        <button v-else class="item-status archived">ARCHIVED</button>
+        <Vote
+            :voteCount="request.voteCount"
+            :upVoteCount="request.upVoteCount"
+            :downVoteCount="request.downVoteCount"
+            :myVote="request.myVote"
+        />
       </div>
-      <button v-else class="item-status archived">ARCHIVED</button>
-      <Vote
-        :voteCount="request.voteCount"
-        :upVoteCount="request.upVoteCount"
-        :downVoteCount="request.downVoteCount"
-        :myVote="request.myVote"
-      />
+      <div class="item-description">
+        {{ request.description }}
+        <a v-if="request.url">{{ request.url }}</a>
+      </div>
     </div>
-    <div class="item-description">
-      {{ request.description }}
-      <a v-if="request.url">{{ request.url }}</a>
-    </div>
+
     <div class="manage-request">
       <div class="edit-request">Edit request</div>
       <div v-on:click="deleteRequest" class="delete-request">
@@ -32,11 +35,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import _ from "lodash"
-import EnvProvider from "jvjr-docker-env";
-const RESOURCE_SERVER_URL = EnvProvider.value("RESOURCE_SERVER_URL");
 import Vote from "../components/Vote";
+import { DELETE_REQUEST } from "../store/actions";
 export default {
   name: "RequestItem",
   props: ["request", "type"],
@@ -45,19 +45,7 @@ export default {
   },
   methods: {
     deleteRequest: async function () {
-      var options = {
-        method: "delete",
-        url: `${RESOURCE_SERVER_URL}/request/${this.type}/${this.request.id}`,
-        headers: {
-          Authorization:
-            `Bearer ${this.$store.state.token}`,
-        },
-      };
-
-      const response = await axios(options);
-      if(_.get(response, "status") === 200){
-        this.$store.commit()
-      }
+      this.$store.dispatch(DELETE_REQUEST, {type: this.type, id: this.request.id})
     },
     ChangeState: function () {},
   },
@@ -69,25 +57,41 @@ export default {
   font-family: "Nunito", sans-serif;
 }
 .card-item {
-  padding: 1em;
-  border-bottom: 1px solid rgb(38, 38, 38, 0.15);
+  min-height: 128px;
+  padding: 20px 0 10px;
+  border-bottom: 1px solid rgba(38, 38, 38, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .item-title {
   display: flex;
-  font-size: 1.315em;
+  font-family: 'Roboto',sans-serif;
+  font-style: normal;
   font-weight: 600;
+  font-size: 21px;
+  line-height: 29px;
+  color: #303030;
 }
 .item-description {
   padding: 0.75em 5.75em 0.75em 0;
+  font-family: 'Roboto',sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  color: #262626;
 }
 .manage-request {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .edit-request {
   font-size: 0.815em;
 }
 .delete-request {
-  margin-left: auto;
+  /*margin-left: auto;*/
   font-size: 1.125em;
 }
 .item-status {
@@ -103,7 +107,7 @@ export default {
 }
 .click-meh {
   opacity: 0.65;
-  border: 1px solid rgb(38, 38, 38, 0.575);
+  border: 1px solid rgba(38, 38, 38, 0.575);
   color: #262626;
   transition: 0.15s ease;
 }

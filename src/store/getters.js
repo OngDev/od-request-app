@@ -17,6 +17,10 @@ const getters = {
 
     creationPopup: state => {
         return state.creationPopup;
+    },
+
+    requestTab: state => {
+        return state.requestTab;
     }
 };
 
