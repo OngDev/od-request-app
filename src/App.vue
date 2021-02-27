@@ -7,8 +7,23 @@
 </template>
 
 <script>
+import {mapState} from "vuex"
 export default {
   name: "App",
+  computed: {
+    ...mapState(["messageBox"])
+  },
+  watch: {
+    messageBox({type, message}) {
+      if(type && message && type !== "" && message !== "") {
+        this.$message({
+          type,
+          message
+        });
+      }
+    }
+  }
+
 };
 </script>
 
@@ -141,7 +156,7 @@ table {
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif !important;
 }
 
 body {

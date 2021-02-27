@@ -15,8 +15,8 @@ const getters = {
         return state.token;
     },
 
-    creationPopup: state => {
-        return state.creationPopup;
+    popup: state => {
+        return state.popup;
     },
 
     requestTab: state => {

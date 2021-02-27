@@ -1,72 +1,143 @@
 <template>
-  <div class="card-item">
-    <div>
-      <div class="item-title">
-        {{ request.title }}
-        <div v-if="request.isActive == false" class="status-container">
-          <button class="item-status active">ACTIVE</button>
-          <button v-on:click="ChangeState" class="item-status click-meh">
-            ARCHIVED
-          </button>
+    <div class="request-item">
+      <el-card>
+        <div class="card-item">
+          <div class="title-container">
+
+            <div class="item-title">
+<!--              {{ request.isActive ? 'ACTIVE' : 'INACTIVE'}}-->
+              {{ request.title }}
+              <div><el-tooltip placement="top">
+                <template #content>
+                  {{request.isActive? 'Active' : 'Inactive'}}
+                </template>
+                <div class="status-badge" :class="{activatedItem: request.isActive, deactivatedItem: !request.isActive}">
+                </div>
+              </el-tooltip></div>
+              <div v-if="request.isArchived"><el-tooltip content="Archived" placement="top">
+                <div class="archived-badge" >
+                </div>
+              </el-tooltip></div>
+            </div>
+            <div class="status-container">
+
+              <Vote
+                  :voteCount="request.voteCount"
+                  :upVoteCount="request.upVoteCount"
+                  :downVoteCount="request.downVoteCount"
+                  :myVote="request.myVote"
+                  @upVote="upVote(request.id)"
+                  @downVote="downVote(request.id)"
+              />
+            </div>
+          </div>
+          <div class="item-description">
+            {{ request.description }}
+            <a v-if="request.url">{{ request.url }}</a>
+          </div>
+
+          <div class="manage-request" v-if="isBelongedToCurrentUser()">
+            <el-tooltip content="Inactivate" placement="top" v-if="request.isActive">
+              <i @click=""  class="el-icon-video-pause edit-request"></i>
+            </el-tooltip>
+            <el-tooltip content="Activate" placement="top" v-else>
+              <i @click=""  class="el-icon-video-play edit-request"></i>
+            </el-tooltip>
+            <el-tooltip content="Archive" placement="top">
+              <i @click=""  class="el-icon-position edit-request"></i>
+            </el-tooltip>
+            <el-tooltip content="Edit" placement="top">
+              <i @click="openEditPopup(request.id)"  class="el-icon-edit edit-request"></i>
+            </el-tooltip>
+            <el-tooltip content="Delete" placement="top">
+              <i style="cursor: pointer;" class="el-icon-delete delete-request" v-on:click="deleteRequest"></i>
+            </el-tooltip>
+
+          </div>
         </div>
-        <button v-else class="item-status archived">ARCHIVED</button>
-        <Vote
-            :voteCount="request.voteCount"
-            :upVoteCount="request.upVoteCount"
-            :downVoteCount="request.downVoteCount"
-            :myVote="request.myVote"
-        />
-      </div>
-      <div class="item-description">
-        {{ request.description }}
-        <a v-if="request.url">{{ request.url }}</a>
-      </div>
+      </el-card>
     </div>
 
-    <div class="manage-request">
-      <div class="edit-request">Edit request</div>
-      <div v-on:click="deleteRequest" class="delete-request">
-        <el-tooltip content="Delete" placement="top">
-          <i style="cursor: pointer;" class="el-icon-delete"></i>
-        </el-tooltip>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
 import Vote from "../components/Vote";
-import { DELETE_REQUEST } from "../store/actions";
+import {mapState} from "vuex"
+import {DELETE_REQUEST, UP_VOTE_REQUEST, DOWN_VOTE_REQUEST, OPEN_CREATION_POPUP} from "../store/actions";
+
+
 export default {
   name: "RequestItem",
   props: ["request", "type"],
   components: {
     Vote,
   },
+  computed: {
+    ...mapState(["user"])
+  },
   methods: {
-    deleteRequest: async function () {
-      this.$store.dispatch(DELETE_REQUEST, {type: this.type, id: this.request.id})
+    isBelongedToCurrentUser() {
+      if(this.user) {
+        return this.request.email === this.user.email || this.user.roles.indexOf("ongdev") !== -1;
+      }
+      return false;
     },
-    ChangeState: function () {},
+    deleteRequest: function () {
+      this.$confirm("Chắc chưa?", "Xóa hả?", {
+        confirmButtonText: "Sợ?",
+        cancelButtonText: "Ấy nhầm nhầm nhầm!",
+        type: "warning"
+      }).then(() => {
+        this.$store.dispatch(DELETE_REQUEST, {type: this.type, id: this.request.id})
+      }).catch(() => {
+        this.$message({
+          type: "info",
+          message: "Vậy thôi!"
+        });
+      })
+
+    },
+    upVote(id) {
+      this.$store.dispatch(UP_VOTE_REQUEST, {type: this.type, id: id});
+    },
+    downVote(id) {
+      this.$store.dispatch(DOWN_VOTE_REQUEST, {type: this.type, id: id});
+    },
+    openEditPopup(id) {
+      const updatingPopup = {
+        popupTitle: "Chòi oi, chỉnh quài!!! Biết đường đâu mà làm man -_-",
+        popupDesc: "*Không liên quan đến lương lậu, hoặc những thứ ở quá xa với lập trình nhé.",
+        popupType: this.type,
+        id,
+        inputTitle: this.request.title,
+        inputDesc: this.request.description,
+        inputUrl: this.request.url,
+        isCreation: false
+      }
+      this.$store.commit(OPEN_CREATION_POPUP, updatingPopup);
+    }
   },
 };
 </script>
 
 <style scoped>
-* {
-  font-family: "Nunito", sans-serif;
-}
 .card-item {
-  min-height: 128px;
-  padding: 20px 0 10px;
-  border-bottom: 1px solid rgba(38, 38, 38, 0.15);
+  min-height: 50px;
+  max-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+.title-container {
+  width: 100%;
+  margin-right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .item-title {
   display: flex;
-  font-family: 'Roboto',sans-serif;
+  align-items: center;
   font-style: normal;
   font-weight: 600;
   font-size: 21px;
@@ -74,49 +145,85 @@ export default {
   color: #303030;
 }
 .item-description {
-  padding: 0.75em 5.75em 0.75em 0;
-  font-family: 'Roboto',sans-serif;
+  position: relative;
+  --max-lines: 3;
+  margin-right: 5.75em;
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 16px;
+  max-height: calc(16px * var(--max-lines));
   color: #262626;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item-description::before {
+  position: absolute;
+  content: "...";
+  /* tempting... but shows when lines == content */
+  /* top: calc(var(--lh) * (var(--max-lines) - 1)); */
+
+  /*
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  */
+  bottom: -2px;
+  right: 0;
+}
+.item-description::after {
+  content: "";
+  position: absolute;
+  /*
+  inset-inline-end: 0;
+  */
+  right: 0;
+  /* missing bottom on purpose*/
+  width: 1rem;
+  height: 1rem;
+  background: white;
 }
 .manage-request {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  margin-top: 10px;
 }
 .edit-request {
-  font-size: 0.815em;
+  font-size: 13px;
+  margin-right: 8px;
+  font-weight: 300;
+  cursor: pointer;
 }
 .delete-request {
-  /*margin-left: auto;*/
-  font-size: 1.125em;
+  font-size: 13px;
+  font-weight: 300;
+  cursor: pointer;
 }
-.item-status {
-  border-style: none;
-  margin-left: 0.55em;
-  padding: 0.35em 0.55em;
-  font-size: 0.515em;
-  color: #f2f2f2;
-  border-radius: 20px;
+.status-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
-.active {
-  background-color: #f05d20;
+.status-badge {
+  margin-left: 10px;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
 }
-.click-meh {
-  opacity: 0.65;
-  border: 1px solid rgba(38, 38, 38, 0.575);
-  color: #262626;
-  transition: 0.15s ease;
+
+.archived-badge{
+  margin-left: 10px;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background-color: #ffb347;
 }
-.click-meh:hover {
-  opacity: 1;
-  background-color: #262626;
-  color: #f2f2f2;
+.activatedItem {
+  background-color: #baed91;
 }
-.archived {
-  background-color: #262626;
+
+.deactivatedItem {
+  background-color: #bbbbbb;
 }
+
 </style>

@@ -6,11 +6,9 @@
     <RedirectMessage type="udemy" />
     <OngDevTitle />
     <WriteRequestTooltip />
-    <RequestTabContainer type="udemy " />
+    <RequestTabContainer type="udemy" />
     <RequestPopup
-      popupType="udemy"
-      popupTitle="Khóa học bạn muốn học là?"
-      popupDesc="*Nhớ giải thích về khóa học, và tại sao bạn recommend nó nhá."
+        style="z-index:2"
     />
   </div>
 </template>

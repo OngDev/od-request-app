@@ -1,11 +1,10 @@
 <template>
   <div class="vote-section">
-    <i v-on:click="UpVote" class="el-icon-arrow-up active"></i>
-    <span v-if="voteCount == null" class="vote-point active">{{
-      0
-    }}</span>
-    <span v-else class="vote-point active">{{ voteCount }}</span>
-    <i v-on:click="DownVote" class="el-icon-arrow-down"></i>
+    <i @click.prevent="$emit('upVote')" class="el-icon-arrow-up vote-icon" :class="{upVote: myVote && myVote === 'up'}"></i>
+    <span class="vote-point-up">{{ upVoteCount || 0 }}</span>|
+    <span class="vote-point">{{ voteCount || 0 }}</span>|
+    <span class="vote-point-down">{{ downVoteCount || 0 }}</span>
+    <i @click.prevent="$emit('downVote')" class="el-icon-arrow-down vote-icon" :class="{downVote: !myVote || myVote==='down'}"></i>
   </div>
 </template>
 
@@ -19,32 +18,6 @@ export default {
     downVoteCount: Number,
     myVote: String,
   },
-  methods: {
-    // UpVote: function () {
-    //   var data = "";
-    //   var config = {
-    //     url:
-    //       "https://od-request-api.herokuapp.com/request/videos" +
-    //       this.i.id +
-    //       "/upvote",
-    //     headers: {
-    //       Authorization:
-    //         "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYzEyNDAwYS03NTkyLTE2ZjAtODE3NS05MjdkNjBjYTAwMDAiLCJpYXQiOjE2MDQ0ODA0OTEsImV4cCI6MTYwNTM0NDQ5MX0.dguhTrTw5Y2c7YQ0BPTwO53hiDJmugRU4Be74mPUwK4CJxrYI1nz-2XQYPs5ObMPh9nJZytCUUkz9XnO6N-UuA",
-    //     },
-    //     data: data,
-    //   };
-    //   axios.get(config);
-    //   return this.votecount++;
-    // },
-    // DownVote: function () {
-    //   axios.get(
-    //     "https://od-request-api.herokuapp.com/request/videos" +
-    //       this.i.id +
-    //       "/downvote"
-    //   );
-    //   return this.votecount++;
-    // },
-  },
 };
 </script>
 
@@ -52,8 +25,38 @@ export default {
 .vote-section {
   margin-left: auto;
   font-weight: 300;
+  display: flex;
+  align-items: center;
+  cursor: default;
 }
 .vote-point {
-  padding: 0 0.65em;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.vote-point-up {
+  font-size: 16px;
+  line-height: 28px;
+  color: #baed91;
+}
+
+.vote-point-down {
+  font-size: 16px;
+  line-height: 28px;
+  color: #fea3aa;
+
+}
+
+.upVote {
+  color: #baed91;
+}
+
+.downVote {
+  color: #fea3aa;
+}
+
+.vote-icon {
+  font-size: 32px;
+  cursor: pointer;
 }
 </style>

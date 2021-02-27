@@ -2,25 +2,25 @@
   <div
     id="popup-container"
     :style="{
-      display: creationPopup.isVisible ? 'flex' : 'none',
+      display: popup.isVisible ? 'flex' : 'none',
     }"
   >
     <div id="pop-up-form">
       <el-row type="flex" class="row-bg" justify="space-between">
         <el-col :span="20"
-          ><h2 id="title">{{ popupTitle }}</h2></el-col
+          ><h2 id="title">{{ popup.popupTitle }}</h2></el-col
         >
         <el-col :span="2" id="close-btn"
           ><i @click="closePopup" class="el-icon-close"></i
         ></el-col>
       </el-row>
       <el-col :span="14"
-        ><div id="title-desc">{{ popupDesc }}</div></el-col
+        ><div id="title-desc">{{ popup.popupDesc }}</div></el-col
       >
 
       <div
         class="input-container"
-        v-if="popupType === 'videos' || popupType === 'qna'"
+        v-if="popup.popupType === 'videos' || popup.popupType === 'qna'"
       >
         <el-input placeholder="Your request here" v-model="title"></el-input>
         <el-input
@@ -31,7 +31,7 @@
         ></el-input>
       </div>
 
-      <div class="input-container" v-else-if="popupType === 'udemy'">
+      <div class="input-container" v-else-if="popup.popupType === 'udemy'">
         <el-input placeholder="Your request here" v-model="title"></el-input>
         <el-input placeholder="Your URL here" v-model="url"></el-input>
         <el-input
@@ -41,8 +41,8 @@
           v-model="description"
         ></el-input>
       </div>
-      <h5 v-if="creationPopup.errorMessage !== undefined">
-        {{ creationPopup.errorMessage }}
+      <h5 v-if="popup.errorMessage !== undefined">
+        {{ popup.errorMessage }}
       </h5>
       <el-button @click="postRequest" type="primary" round>Submit</el-button>
     </div>
@@ -51,7 +51,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { CLOSE_CREATION_POPUP, CREATE_REQUEST } from "../store/actions";
+import { CLOSE_CREATION_POPUP, CREATE_REQUEST, UPDATE_REQUEST } from "../store/actions";
 export default {
   name: "RequestPopup",
   data() {
@@ -61,27 +61,50 @@ export default {
       description: "",
     };
   },
-  props: {
-    popupType: String,
-    popupTitle: String,
-    popupDesc: String,
-  },
   computed: {
-    ...mapGetters(["creationPopup"]),
+    ...mapGetters(["popup"]),
+  },
+  mounted() {
+    this.title = this.popup.inputTitle;
+    this.description = this.popup.inputDesc;
+    this.url = this.popup.inputUrl;
+    console.log(this.popup)
   },
   methods: {
     postRequest() {
-      this.$store.dispatch(CREATE_REQUEST, {
-        title: this.title,
-        description: this.description,
-        url: this.url,
-        popupType: this.popupType,
-      });
+      if (this.popup.isCreation) {
+        this.$store.dispatch(CREATE_REQUEST, {
+          title: this.title,
+          description: this.description,
+          url: this.url,
+          popupType: this.popup.popupType,
+        });
+      }else {
+        this.$store.dispatch(UPDATE_REQUEST, {
+          id: this.popup.id,
+          title: this.title,
+          description: this.description,
+          url: this.url,
+          popupType: this.popup.popupType,
+        });
+      }
+
+      this.title = "";
+      this.url="";
+      this.description="";
+
     },
     closePopup() {
       this.$store.commit(CLOSE_CREATION_POPUP);
     },
   },
+  watch: {
+    popup({inputTitle, inputDesc, inputUrl }) {
+      this.title = inputTitle;
+      this.description = inputDesc;
+      this.url = inputUrl;
+    }
+  }
 };
 </script>
 
@@ -98,7 +121,6 @@ export default {
   align-items: center;
 }
 #pop-up-form {
-  font-family: "Roboto";
   background-color: #fbf7f5;
   color: #262626;
   width: 69%;

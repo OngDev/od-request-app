@@ -1,10 +1,10 @@
  <template>
-  <el-tabs v-model="requestTab" @tab-click="handleClick">
-    <el-tab-pane label="all requests" name="all-requests" class="tab-pane-title">
+  <el-tabs v-model="requestTab" @tab-click="handleClick" class="request-tab-container">
+    <el-tab-pane label="all requests" name="all-requests" class="request-tab-panel">
       <RequestList v-if="requests && requests.length > 0" :requests="requests" :type="type"/>
       <h2 style="text-align: center" v-else>Chán, chẳng có ai hỏi gì luôn!</h2>
     </el-tab-pane>
-    <el-tab-pane label="my requests" name="my-requests" class="tab-pane-title">
+    <el-tab-pane label="my requests" name="my-requests" class="request-tab-panel">
       <RequestList v-if="myRequests && myRequests.length > 0" :requests="myRequests" :type="type"/>
       <h2 style="text-align: center" v-else>Chán, chưa hỏi gì luôn!</h2>
     </el-tab-pane>
@@ -51,5 +51,13 @@ export default {
 </script>
 
 <style scoped>
-
+.request-tab-container{
+  margin-top: 80px;
+}
+.request-tab-panel {
+  background-color: #fffdfa;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px #ffb34733 solid;
+}
 </style>

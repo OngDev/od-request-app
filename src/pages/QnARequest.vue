@@ -6,9 +6,7 @@
     <WriteRequestTooltip />
     <RequestTabContainer type="qna" />
     <RequestPopup
-      popupType="qna"
-      popupTitle="Câu hỏi của bạn là?"
-      popupDesc="*Không quá nặng về kĩ thuật, không liên quan đến lương lậu hoặc quá xa với lập trình nhé."
+        style="z-index:2"
     />
   </div>
 </template>

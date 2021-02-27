@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
     p {
-        font-family: 'Nunito', sans-serif;
+        font-family: 'Nunito', sans-serif !important;
         margin: 0;
     }
     #welcome-text {

@@ -10,11 +10,23 @@ const store = createStore({
       token: undefined,
       refreshToken: undefined,
       requests: [],
-      myRequest: [],
-      creationPopup: {
+      myRequests: [],
+      popup: {
         isVisible: false,
         isLoading: false,
-        errorMessage: undefined
+        errorMessage: undefined,
+        popupTitle: "",
+        popupDesc: "",
+        popupType: "",
+        id: "",
+        inputTitle: "",
+        inputDesc: "",
+        inputUrl:"",
+        isCreation: false,
+      },
+      messageBox: {
+        type: "",
+        message: ""
       },
       requestTab: "all-requests",
     }
