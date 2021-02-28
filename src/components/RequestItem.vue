@@ -26,8 +26,8 @@
                   :upVoteCount="request.upVoteCount"
                   :downVoteCount="request.downVoteCount"
                   :myVote="request.myVote"
-                  @upVote="upVote(request.id)"
-                  @downVote="downVote(request.id)"
+                  @upVote="upVote()"
+                  @downVote="downVote()"
               />
             </div>
           </div>
@@ -38,16 +38,16 @@
 
           <div class="manage-request" v-if="isBelongedToCurrentUser()">
             <el-tooltip content="Inactivate" placement="top" v-if="request.isActive">
-              <i @click=""  class="el-icon-video-pause edit-request"></i>
+              <i @click="changeActivation()"  class="el-icon-video-pause edit-request"></i>
             </el-tooltip>
             <el-tooltip content="Activate" placement="top" v-else>
-              <i @click=""  class="el-icon-video-play edit-request"></i>
+              <i @click="changeActivation()"  class="el-icon-video-play edit-request"></i>
             </el-tooltip>
-            <el-tooltip content="Archive" placement="top">
-              <i @click=""  class="el-icon-position edit-request"></i>
+            <el-tooltip content="Archive" placement="top" v-if="!request.isArchived && isOngDev()">
+              <i @click="archiveRequest()"  class="el-icon-position edit-request"></i>
             </el-tooltip>
             <el-tooltip content="Edit" placement="top">
-              <i @click="openEditPopup(request.id)"  class="el-icon-edit edit-request"></i>
+              <i @click="openEditPopup()"  class="el-icon-edit edit-request"></i>
             </el-tooltip>
             <el-tooltip content="Delete" placement="top">
               <i style="cursor: pointer;" class="el-icon-delete delete-request" v-on:click="deleteRequest"></i>
@@ -63,7 +63,7 @@
 <script>
 import Vote from "../components/Vote";
 import {mapState} from "vuex"
-import {DELETE_REQUEST, UP_VOTE_REQUEST, DOWN_VOTE_REQUEST, OPEN_CREATION_POPUP} from "../store/actions";
+import {DELETE_REQUEST, UP_VOTE_REQUEST, DOWN_VOTE_REQUEST, OPEN_CREATION_POPUP, CHANGE_REQUEST_ACTIVATION, ARCHIVE_REQUEST} from "../store/actions";
 
 
 export default {
@@ -82,6 +82,9 @@ export default {
       }
       return false;
     },
+    isOngDev() {
+      return this.user && this.user.roles.indexOf("ongdev") !== -1;
+    },
     deleteRequest: function () {
       this.$confirm("Chắc chưa?", "Xóa hả?", {
         confirmButtonText: "Sợ?",
@@ -97,25 +100,42 @@ export default {
       })
 
     },
-    upVote(id) {
-      this.$store.dispatch(UP_VOTE_REQUEST, {type: this.type, id: id});
+    upVote() {
+      this.$store.dispatch(UP_VOTE_REQUEST, {type: this.type, id: this.request.id});
     },
-    downVote(id) {
-      this.$store.dispatch(DOWN_VOTE_REQUEST, {type: this.type, id: id});
+    downVote() {
+      this.$store.dispatch(DOWN_VOTE_REQUEST, {type: this.type, id: this.request.id});
     },
-    openEditPopup(id) {
+    openEditPopup() {
       const updatingPopup = {
         popupTitle: "Chòi oi, chỉnh quài!!! Biết đường đâu mà làm man -_-",
         popupDesc: "*Không liên quan đến lương lậu, hoặc những thứ ở quá xa với lập trình nhé.",
         popupType: this.type,
-        id,
+        id: this.request.id,
         inputTitle: this.request.title,
         inputDesc: this.request.description,
         inputUrl: this.request.url,
         isCreation: false
       }
       this.$store.commit(OPEN_CREATION_POPUP, updatingPopup);
-    }
+    },
+    changeActivation() {
+      this.$store.dispatch(CHANGE_REQUEST_ACTIVATION, {type: this.type, id: this.request.id})
+    },
+    archiveRequest() {
+      this.$confirm("Archive", "Làm xong cái này rồi hả Ông Dev", {
+        confirmButtonText: "Ờ",
+        cancelButtonText: "Chưa",
+        type: "warning"
+      }).then(() => {
+        this.$store.dispatch(ARCHIVE_REQUEST, {type: this.type, id: this.request.id})
+      }).catch(() => {
+        this.$message({
+          type: "info",
+          message: "Vậy thôi!"
+        });
+      })
+    },
   },
 };
 </script>

@@ -12,8 +12,7 @@ export const DELETE_REQUEST = "deleteRequest";
 export const UP_VOTE_REQUEST = "upVoteRequest";
 export const DOWN_VOTE_REQUEST = "downVoteRequest";
 export const UPDATE_REQUEST = "updateRequest";
-export const ACTIVATE_REQUEST = "activateRequest";
-export const INACTIVATE_REQUEST = "inactivateRequest";
+export const CHANGE_REQUEST_ACTIVATION = "changeRequestActivation";
 export const ARCHIVE_REQUEST = "archiveRequest";
 
 // Popup handing
