@@ -1,37 +1,37 @@
 <template>
   <div class="redirect" v-if="type === 'videos'">
-    <a
+    <a class="navigation-item"
       @click.prevent="redirectToPage(0, 'videos')"
     >
       {{ VideoRedirect[0].text }} <span class="dot">.</span>
       <i class="el-icon-right move-right"></i>
     </a>
     <br />
-    <a @click.prevent="redirectToPage(1, 'videos')">
+    <a class="navigation-item" @click.prevent="redirectToPage(1, 'videos')">
       {{ VideoRedirect[1].text }} <span class="dot">.</span>
       <i class="el-icon-right move-right"></i>
     </a>
   </div>
 
   <div class="redirect" v-else-if="type === 'udemy'">
-    <a @click.prevent="redirectToPage(0, 'udemy')">
+    <a class="navigation-item" @click.prevent="redirectToPage(0, 'udemy')">
       {{ UdemyRedirect[0].text }} <span class="dot">.</span>
       <i class="el-icon-right move-right"></i>
     </a>
     <br />
-    <a @click.prevent="redirectToPage(1, 'udemy')">
+    <a class="navigation-item" @click.prevent="redirectToPage(1, 'udemy')">
       {{ UdemyRedirect[1].text }} <span class="dot">.</span>
       <i class="el-icon-right move-right"></i>
     </a>
   </div>
 
   <div class="redirect" v-else>
-    <a @click.prevent="redirectToPage(0, 'qna')">
+    <a class="navigation-item" @click.prevent="redirectToPage(0, 'qna')">
       {{ QnARedirect[0].text }} <span class="dot">.</span>
       <i class="el-icon-right move-right"></i>
     </a>
     <br />
-    <a @click.prevent="redirectToPage(1, 'qna')">
+    <a class="navigation-item" @click.prevent="redirectToPage(1, 'qna')">
       {{ QnARedirect[1].text }} <span class="dot">.</span>
       <i class="el-icon-right move-right"></i>
     </a>
@@ -98,5 +98,9 @@ a {
 }
 a:hover .move-right {
   transform: translate(10px, 0);
+}
+
+.navigation-item {
+  cursor: pointer;
 }
 </style>
