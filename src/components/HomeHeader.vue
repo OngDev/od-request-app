@@ -2,7 +2,7 @@
 <el-row type="flex" justify="space-around" id="header">
   <el-col :span="6"></el-col>
   <el-col :span="6" id="logo-container">
-    <img id="logo" src="../assets/logo.png"/>
+    <img id="logo" src="../assets/icons/logo.svg"/>
   </el-col>
   <el-col :span="6"></el-col>
 </el-row>

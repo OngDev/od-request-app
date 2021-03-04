@@ -29,3 +29,9 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+  #page-name {
+    font-family: 'Nunito', sans-serif;
+  }
+</style>

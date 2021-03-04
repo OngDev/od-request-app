@@ -156,7 +156,7 @@ table {
 }
 
 * {
-  font-family: "Roboto", sans-serif !important;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -203,14 +203,14 @@ body {
   .content-container {
     border-radius: 10px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    height: calc(100vh - 60px);
+    // height: calc(100vh - 60px);
     min-height: 1020px;
   }
 
   .page-container {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    height: calc(100% - 60px);
+    // padding-top: 30px;
+    // padding-bottom: 30px;
+    // height: calc(100% - 60px);
   }
 }
 

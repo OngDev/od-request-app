@@ -51,6 +51,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: 'Nunito Sans', sans-serif;
+}
 .request-tab-container{
   margin-top: 80px;
 }

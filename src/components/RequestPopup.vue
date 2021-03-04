@@ -109,6 +109,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+* {
+  font-family: 'Roboto', sans-serif;
+}
 #popup-container {
   position: absolute;
   top: 0;
