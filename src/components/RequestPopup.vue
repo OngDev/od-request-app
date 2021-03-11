@@ -68,7 +68,6 @@ export default {
     this.title = this.popup.inputTitle;
     this.description = this.popup.inputDesc;
     this.url = this.popup.inputUrl;
-    console.log(this.popup)
   },
   methods: {
     postRequest() {
