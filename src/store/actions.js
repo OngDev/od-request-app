@@ -23,6 +23,7 @@ export const ADD_ERROR_MESSAGE_TO_CREATION_POPUP = "addErrorMessageToCreationPop
 
 export const TO_MY_REQUESTS_TAB = "toMyRequestsTab";
 export const UPDATE_MESSAGE_BOX = "updateMessageBox";
+export const CHECK_LOGGED_IN_USER = "checkLoggedInUser";
 
 import _ from "lodash";
 import axios from "axios";
@@ -35,6 +36,9 @@ const RESOURCE_SERVER_URL = EnvProvider.value("RESOURCE_SERVER_URL");
 import logger from "../logger/index";
 
 const actions = {
+    checkLoggedInUser({state}) {
+        checkLoginStatus(state);
+    },
     async fetchRequests({state, commit}, {page, type}) {
         try {
             if (!page) page = 0;
@@ -48,9 +52,9 @@ const actions = {
         }
     },
 
-    async fetchMyRequests({state, commit}, {page, type}) {
+    async fetchMyRequests({state, commit, dispatch}, {page, type}) {
         try {
-            checkLoginStatus(state);
+            dispatch(CHECK_LOGGED_IN_USER)
             if (!page) page = 0;
             const res = await axios.get(
                 `${RESOURCE_SERVER_URL}/request/${type}/mine?page=${page}`,
@@ -69,7 +73,7 @@ const actions = {
 
     async createRequest({state, dispatch, commit}, {title, description, url, popupType}) {
         try {
-            checkLoginStatus(state);
+            dispatch(CHECK_LOGGED_IN_USER)
             const option = {
                 method: "post",
                 headers: {
@@ -103,7 +107,7 @@ const actions = {
         }
     },
 
-    async updateRequest({state, commit}, {
+    async updateRequest({state, commit, dispatch}, {
         id,
         title,
         description,
@@ -111,7 +115,7 @@ const actions = {
         popupType
     }) {
         try {
-            checkLoginStatus(state);
+            dispatch(CHECK_LOGGED_IN_USER)
             const options = {
                 method: "put",
                 url: `${RESOURCE_SERVER_URL}/request/${popupType}/${id}`,
@@ -145,7 +149,7 @@ const actions = {
     },
 
     async deleteRequest({state, dispatch, commit}, {type, id}) {
-        checkLoginStatus(state);
+        dispatch(CHECK_LOGGED_IN_USER)
         const options = {
             method: "delete",
             url: `${RESOURCE_SERVER_URL}/request/${type}/${id}`,
@@ -173,8 +177,8 @@ const actions = {
         commit(TO_MY_REQUESTS_TAB);
     },
 
-    async upVoteRequest({state, commit}, {type, id}) {
-        checkLoginStatus(state);
+    async upVoteRequest({state, commit, dispatch}, {type, id}) {
+        dispatch(CHECK_LOGGED_IN_USER)
         const options = {
             method: "get",
             url: `${RESOURCE_SERVER_URL}/request/${type}/${id}/upvote`,
@@ -188,8 +192,8 @@ const actions = {
             commit(UPDATE_REQUEST, {updatedRequest: calculateVotes(state, response.data)})
         }
     },
-    async downVoteRequest({state, commit}, {type, id}) {
-        checkLoginStatus(state);
+    async downVoteRequest({state, commit, dispatch}, {type, id}) {
+        dispatch(CHECK_LOGGED_IN_USER)
         const options = {
             method: "get",
             url: `${RESOURCE_SERVER_URL}/request/${type}/${id}/downvote`,
@@ -203,9 +207,9 @@ const actions = {
             commit(UPDATE_REQUEST, {updatedRequest: calculateVotes(state, response.data)})
         }
     },
-    async changeRequestActivation({state, commit}, {type, id}) {
+    async changeRequestActivation({state, commit, dispatch}, {type, id}) {
         try {
-            checkLoginStatus(state);
+            dispatch(CHECK_LOGGED_IN_USER)
             const options = {
                 method: "get",
                 url: `${RESOURCE_SERVER_URL}/request/${type}/${id}/changeActivation`,
@@ -222,9 +226,9 @@ const actions = {
             logger.error(error);
         }
     },
-    async archiveRequest({state, commit}, {type, id}) {
+    async archiveRequest({state, commit, dispatch}, {type, id}) {
         try {
-            checkLoginStatus(state);
+            dispatch(CHECK_LOGGED_IN_USER)
             const options = {
                 method: "get",
                 url: `${RESOURCE_SERVER_URL}/request/${type}/${id}/archive`,

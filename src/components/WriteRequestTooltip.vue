@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {OPEN_CREATION_POPUP} from "../store/actions"
+import {OPEN_CREATION_POPUP, CHECK_LOGGED_IN_USER} from "../store/actions"
 
 const videoPopup = {
   popupType: "videos",
@@ -30,7 +30,7 @@ export default {
   name: "WriteRequestTooltip",
   methods: {
     openPopup() {
-
+      this.$store.dispatch(CHECK_LOGGED_IN_USER);
       this.$store.commit(OPEN_CREATION_POPUP, this.getPopupConfig());
     },
     getPopupConfig() {
