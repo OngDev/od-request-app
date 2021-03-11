@@ -33,7 +33,7 @@
           </div>
           <div class="item-description">
             {{ request.description }}
-            <a v-if="request.url">{{ request.url }}</a>
+            <a v-if="request.url" :href="request.url">{{ request.url }}</a>
           </div>
 
           <div class="manage-request" v-if="isBelongedToCurrentUser()">
@@ -142,8 +142,7 @@ export default {
 
 <style scoped>
 .card-item {
-  min-height: 50px;
-  max-height: 100px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

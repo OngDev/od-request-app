@@ -83,7 +83,7 @@ const actions = {
                 data: {title, description},
             };
 
-            if (this.popupType === "udemy") {
+            if (popupType === "udemy") {
                 option.data = {
                     ...option.data,
                     url,
