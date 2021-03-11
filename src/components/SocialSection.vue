@@ -22,9 +22,9 @@ export default {
   margin-bottom: 110px;
 }
 #od-name {
-    margin-bottom: 25px;
-    text-align: center;
-  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 800;
   font-size: 25px;
   line-height: 30px;
 }
@@ -43,9 +43,9 @@ export default {
 }
 
 @media only screen and (max-width: 768px){
-    #social-section {
-        margin-top: 32px;
-        margin-bottom: 32px;
-    }
+  #social-section {
+      margin-top: 32px;
+      margin-bottom: 32px;
+  }
 }
 </style>

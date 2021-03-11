@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --https true",
+    "serve": "vue-cli-service serve",
     "build": "jvjr --build && vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
     "jvjr-build": "jvjr --build"

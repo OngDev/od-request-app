@@ -47,6 +47,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: 'Roboto', sans-serif;
+}
 #write-req-tooltip {
   font-weight: 300;
   font-size: 26px;
@@ -68,7 +71,7 @@ export default {
   border-left: 0.525em solid transparent;
   border-right: 0.535em solid transparent;
   border-bottom: 0.575em solid #3d3d3d;
-  margin-top: -0.775em;
+  margin-top: -0.715em;
   margin-left: 0.525em;
   position: absolute;
 }
