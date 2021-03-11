@@ -9,8 +9,14 @@ const store = createStore({
       user: undefined,
       token: undefined,
       refreshToken: undefined,
-      requests: [],
-      myRequests: [],
+      requests: {
+        items: [],
+        total: undefined,
+      },
+      myRequests: {
+        items: [],
+        total: undefined,
+      },
       popup: {
         isVisible: false,
         isLoading: false,

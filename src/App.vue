@@ -196,29 +196,32 @@ body {
 }
 
 .request-page {
-    padding: 20px;
+  padding: 20px;
+  height: calc(100% - 40px);
 }
 
 .page-content{
-  height: calc(100vh - 335px);
+  height: calc(100% - 215px);
 }
 
 @media only screen and (min-width: 1440px) {
   .content-container {
     border-radius: 10px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    height: calc(100vh - 60px);
     min-height: 1020px;
   }
-
+}
+@media only screen and (min-width: 1440px) and (min-height: 1000px) {
   .page-container {
     padding-top: 30px;
     padding-bottom: 30px;
     height: calc(100% - 60px);
   }
-
+  .content-container {
+    height: calc(100vh - 60px);
+  }
   .page-content{
-    height: calc(100vh - 395px);
+    height: calc(100vh - 315px) !important;
   }
 }
 
@@ -235,6 +238,10 @@ body {
 @media only screen and (max-width: 768px) {
   .page-container {
     min-height: unset;
+  }
+
+  .page-content{
+    height: calc(100% - 215px);
   }
 }
 

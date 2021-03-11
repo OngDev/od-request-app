@@ -5,8 +5,14 @@ const mutations = {
     addLoggedInUserToState(state, {user}) {
         if (user) {
             state.user = user
-            state.requests = mapRequests(state, state.requests);
-            state.myRequests = mapRequests(state, state.myRequests);
+            state.requests = {
+                items: state.requests.items && mapRequests(state, state.requests.items),
+                total: state.requests.total
+            };
+            state.myRequests = {
+                items: state.myRequests.items && mapRequests(state, state.myRequests.items),
+                total: state.myRequests.total
+            };
         }
     },
 
@@ -23,15 +29,21 @@ const mutations = {
         }
     },
 
-    addRequestListToState(state, {requests}) {
+    addRequestListToState(state, {requests, total}) {
         if (requests) {
-            state.requests = requests;
+            state.requests = {
+                items: requests,
+                total
+            };
         }
     },
 
-    addMyRequestListToState(state, {requests}) {
+    addMyRequestListToState(state, {requests, total}) {
         if (requests) {
-            state.myRequests = requests;
+            state.myRequests = {
+                items: requests,
+                total
+            };
         }
     },
 
@@ -89,8 +101,8 @@ const mutations = {
         }
     },
 
-    toMyRequestsTab(state) {
-        state.requestTab = "my-requests"
+    changeRequestTab(state, {tab}) {
+        state.requestTab = tab
     },
     updateRequest(state, {updatedRequest}) {
         state.requests = _.map(state.requests, (request) => {

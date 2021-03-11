@@ -1,6 +1,6 @@
 <template>
   <div class="request-list">
-    <RequestItem v-bind:key="request.title" v-for="request in requests" :request="request" :type="type"/>
+    <RequestItem v-bind:key="request.title" v-for="request in requests.items" :request="request" :type="type"/>
   </div>
 
 </template>
@@ -18,7 +18,11 @@ export default {
 
 <style scoped>
 .request-list{
-  overflow-y: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
   width: 100%;
 }
 .request-list .request-item:not(:last-child){

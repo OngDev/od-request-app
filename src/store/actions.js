@@ -21,7 +21,7 @@ export const OPEN_CREATION_POPUP = "openCreationPopup";
 export const TOGGLE_CREATION_POPUP_LOADING = "togglePopupLoading";
 export const ADD_ERROR_MESSAGE_TO_CREATION_POPUP = "addErrorMessageToCreationPopup";
 
-export const TO_MY_REQUESTS_TAB = "toMyRequestsTab";
+export const CHANGE_REQUEST_TAB = "changeRequestTab";
 export const UPDATE_MESSAGE_BOX = "updateMessageBox";
 export const CHECK_LOGGED_IN_USER = "checkLoggedInUser";
 
@@ -39,25 +39,26 @@ const actions = {
     checkLoggedInUser({state}) {
         checkLoginStatus(state);
     },
-    async fetchRequests({state, commit}, {page, type}) {
+    async fetchRequests({state, commit}, {page = 0, size = 5, type}) {
         try {
             if (!page) page = 0;
             const res = await axios.get(
-                `${RESOURCE_SERVER_URL}/request/${type}?page=${page}`
+                `${RESOURCE_SERVER_URL}/request/${type}?page=${page}&size=${size}`
             );
             const requests = mapRequests(state, _.get(res, "data.content", []));
-            commit(ADD_REQUEST_LIST_TO_STATE, {requests});
+            const total = _.get(res, "data.totalElements");
+            commit(ADD_REQUEST_LIST_TO_STATE, {requests, total});
         } catch (error) {
             logger.error(error);
         }
     },
 
-    async fetchMyRequests({state, commit, dispatch}, {page, type}) {
+    async fetchMyRequests({state, commit, dispatch}, {page = 0, size = 5, type}) {
         try {
             dispatch(CHECK_LOGGED_IN_USER)
             if (!page) page = 0;
             const res = await axios.get(
-                `${RESOURCE_SERVER_URL}/request/${type}/mine?page=${page}`,
+                `${RESOURCE_SERVER_URL}/request/${type}/mine?page=${page}&size=${size}`,
                 {
                     headers: {
                         Authorization: `Bearer ${state.token}`,
@@ -65,7 +66,8 @@ const actions = {
                 }
             );
             const requests = mapRequests(state, _.get(res, "data.content", []));
-            commit(ADD_MY_REQUEST_LIST_TO_STATE, {requests});
+            const total = _.get(res, "data.totalElements");
+            commit(ADD_MY_REQUEST_LIST_TO_STATE, {requests, total});
         } catch (error) {
             logger.error(error);
         }
@@ -94,7 +96,7 @@ const actions = {
             if (response.status === 200) {
                 commit(CLOSE_CREATION_POPUP);
                 dispatch(FETCH_MY_REQUEST, {page: 0, type: popupType});
-                commit(TO_MY_REQUESTS_TAB);
+                commit(CHANGE_REQUEST_TAB, {tab: "my-requests"});
                 commit(UPDATE_MESSAGE_BOX, {
                     type: "success",
                     message: "Chắc tạo rồi á :v"
@@ -135,7 +137,7 @@ const actions = {
             if (response.status === 200) {
                 commit(CLOSE_CREATION_POPUP);
                 commit(UPDATE_REQUEST, {updatedRequest: calculateVotes(state, response.data)})
-                commit(TO_MY_REQUESTS_TAB);
+                commit(CHANGE_REQUEST_TAB, {tab: "my-requests"});
                 commit(UPDATE_MESSAGE_BOX, {
                     type: "success",
                     message: "Chắc cập nhật rồi á :v"
@@ -173,8 +175,8 @@ const actions = {
         }
     },
 
-    toMyRequestsTab({commit}) {
-        commit(TO_MY_REQUESTS_TAB);
+    changeRequestTab({commit}, {tab}) {
+        commit(CHANGE_REQUEST_TAB, {tab});
     },
 
     async upVoteRequest({state, commit, dispatch}, {type, id}) {
