@@ -16,8 +16,11 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+.request-list{
+  overflow-y: auto;
+  width: 100%;
+}
 .request-list .request-item:not(:last-child){
   margin-bottom: 20px;
 }

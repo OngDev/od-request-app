@@ -199,6 +199,10 @@ body {
     padding: 20px;
 }
 
+.page-content{
+  height: calc(100vh - 335px);
+}
+
 @media only screen and (min-width: 1440px) {
   .content-container {
     border-radius: 10px;
@@ -211,6 +215,10 @@ body {
     padding-top: 30px;
     padding-bottom: 30px;
     height: calc(100% - 60px);
+  }
+
+  .page-content{
+    height: calc(100vh - 395px);
   }
 }
 
@@ -236,4 +244,5 @@ body {
   line-height: 29px !important;
   color: #000000 !important;
 }
+
 </style>

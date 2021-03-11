@@ -1,10 +1,12 @@
 <template>
   <div id="qna-page" class="request-page">
-    <div id="page-name">this is <span class="highlight">Q&A</span> page!</div>
-    <RedirectMessage type="qna" />
-    <OngDevTitle />
-    <WriteRequestTooltip />
-    <RequestTabContainer type="qna" />
+    <div class="page-title">
+      <div id="page-name">this is <span class="highlight">Q&A</span> page!</div>
+      <RedirectMessage type="qna" />
+      <OngDevTitle />
+      <WriteRequestTooltip />
+    </div>
+    <RequestTabContainer type="qna" class="page-content"/>
     <RequestPopup
         style="z-index:2"
     />

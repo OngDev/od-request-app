@@ -1,12 +1,15 @@
 <template>
   <div id="video-page" class="request-page">
-    <div id="page-name">
-      this is <span class="highlight">video-request</span> page!
+    <div class="page-title">
+      <div id="page-name">
+        this is <span class="highlight">video-request</span> page!
+      </div>
+      <RedirectMessage type="videos"/>
+      <OngDevTitle/>
+      <WriteRequestTooltip/>
     </div>
-    <RedirectMessage type="videos"/>
-    <OngDevTitle/>
-    <WriteRequestTooltip/>
-    <RequestTabContainer type="videos"/>
+
+    <RequestTabContainer type="videos" class="page-content"/>
     <RequestPopup style="z-index:2"/>
   </div>
 </template>

@@ -49,12 +49,19 @@ export default {
   },
 };
 </script>
-
+<style>
+.el-tabs__content{
+  max-height: calc(100% - 55px);
+  display: flex;
+}
+</style>
 <style scoped>
 .request-tab-container{
   margin-top: 80px;
 }
 .request-tab-panel {
+  display: flex;
+  width: 100%;
   background-color: #fffdfa;
   padding: 20px;
   border-radius: 5px;
