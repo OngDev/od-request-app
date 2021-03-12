@@ -21,7 +21,7 @@ export default {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex: 1 1 auto;
   width: 100%;
 }
